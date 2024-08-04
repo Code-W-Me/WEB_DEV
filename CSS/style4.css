@@ -1,0 +1,20 @@
+div{
+    height: 200px;
+    width: 500px;
+    background-color:pink ;
+    border: 5px solid purple;
+    border-radius:  10px;
+    margin-bottom: 25px;
+    margin-left: 20px;
+}
+h1{
+    border: dotted 3px chocolate;
+    
+}
+button{
+    border: 2px solid magentas;
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: yellow;
+}

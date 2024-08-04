@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/server">
+        Favorite Fruit:
+        <br>
+        <input type="radio" name="Fruit" id="apple" value="apple">
+        <label for="apple">Apple</label>
+        <br>
+        <input type="radio" name="Fruit" id="orange">
+        <label for="orange">orange</label>
+        <br>
+        <input type="radio" name="Fruit" id="banana">
+        <label for="banana">banana</label>
+        <br>
+        <input type="radio" name="Fruit" id="mango">
+        <label for="mango">mango</label>
+        <hr>
+        <!--radio using checkbox-->
+        Choose the subjects:
+        <br>
+        <div>
+            <input type="checkbox" id="maths" name="subjects">
+            <label for="maths">Maths</label>
+
+            <input type="checkbox" id="sci" name="subjects">
+            <label for="sci">Science</label>
+
+            <input type="checkbox" id="eng" name="subjects">
+            <label for="eng">Maths</label>
+
+            <input type="checkbox" id="sst" name="subjects">
+            <label for="sst">Maths</label>
+        </div>
+        <hr>
+        <!--DropDown-->
+        <select name="Profession" id="Profession">
+            <option value="stu">Student</option>
+            <option value="dev">Developer</option>
+        </select>
+        <hr>
+        <!--This is Range input-->
+        <div>
+            <label for="volume">Volume</label>
+            <input type="range" name="volume" min="1" max="100" value="50" step="5">
+        </div>
+        <hr>
+        <!--This is textarea Input-->
+        <label for="feedback">Please Fill the feedback:</label>
+        <textarea id="feedback" name="feedback" placeholder="please enter your feedback"></textarea>
+        <br>
+        <button>submit</button>
+    </form>
+</body>
+</html>
