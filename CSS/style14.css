@@ -31,10 +31,10 @@
 }
 .sidebar_menu .logo{
     position: absolute;
-    width: 50%;
-    left:10%;
+    width: 100%;
     line-height: 60px;
-    box-shadow:0 0 4px rgba(225, 225, 225, 0.5);
+    box-shadow:0 2px 4px rgba(225, 225, 225, 0.5);
+    height: 60px;
 }
 .sidebar_menu .logo a{
     position: absolute;
