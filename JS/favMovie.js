@@ -5,5 +5,5 @@ while((guess!=movie)&&(guess!="quit")){
     guess =prompt("wrong guess.")
 }
 if(movie==guess){
-    console.log("guessed movie is write.")
+    console.log("guessed movie is right.")
 }
