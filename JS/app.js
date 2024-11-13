@@ -8,6 +8,7 @@
 // console.log(` the total price is: ${pencilPrice + penPrice} rupees`)
 
 // conditional statement
+<<<<<<< HEAD
 // let firstName = "Yash"
 // if (firstName =="Yash"){
 //     console.log(`Welcome ${firstName}`)
@@ -93,3 +94,9 @@
             console.log("Apna college");
         }, 4000);
         console.log("Welcome to");
+=======
+let firstName = "Yash"
+if (firstName =="Yash"){
+    console.log(`Welcome ${firstName}`)
+}
+>>>>>>> 7d0f5de (t)
