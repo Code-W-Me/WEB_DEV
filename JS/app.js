@@ -8,7 +8,7 @@
 // console.log(` the total price is: ${pencilPrice + penPrice} rupees`)
 
 // conditional statement
-<<<<<<< HEAD
+
 // let firstName = "Yash"
 // if (firstName =="Yash"){
 //     console.log(`Welcome ${firstName}`)
@@ -89,14 +89,82 @@
         
     // }
     // Set Timeout
-        console.log("Hi there");
-        setTimeout (() => {
-            console.log("Apna college");
-        }, 4000);
-        console.log("Welcome to");
-=======
-let firstName = "Yash"
-if (firstName =="Yash"){
-    console.log(`Welcome ${firstName}`)
-}
->>>>>>> 7d0f5de (t)
+        // console.log("Hi there");
+        // setTimeout (() => {
+        //     console.log("Apna college");
+        // }, 4000);
+        // console.log("Welcome to");
+
+// let firstName = "Yash"
+// if (firstName =="Yash"){
+//     console.log(`Welcome ${firstName}`)
+// }
+
+// let form = document.querySelector("form");
+//     form.addEventListener("submit",function(event){
+//         event.preventDefault();
+//         let user = document.querySelector("#user");
+//         let pass = document.querySelector("#pass");
+//         console.log(user.value);
+//         console.log(pass.value);
+//     });
+// function saveToDb(data){
+//     return new Promise((resolve,reject)=>{
+//         let internetSpeed = Math.floor(Math.random()*10)+1;
+//         if(internetSpeed > 4){
+//             resolve("success : data was saved ");
+//         }else{
+//             reject("failure : weak connection");
+//         }
+//     });
+// }
+
+// saveToDb("apna college")
+// .then(()=>{
+//     console.log("data1 saved");
+//     return saveToDb("helloworld");
+// })
+// .then(()=>{
+//     console.log("data2 saved");
+// })
+// .catch(()=>{
+//     console.log("promise was rejected");
+// });
+
+    // async function greet(){
+    //     throw "weak Connection";
+    //     return "hello!";
+    // }
+    // greet()
+    // .then((result)=>{
+    //     console.log("promise was resolved:",result);
+        
+    // })
+    // .catch((err)=>{
+    //     console.log("promise was rejected with an error:",err);
+    // })
+    function getNum(){
+        //create new promise
+        return new Promise((resolve,reject)=>{
+            //setting up timeout
+            setTimeout(()=>{
+                let num = Math.floor(Math.random() *10)+1;
+                console.log(num);
+                // after calling random num call resolve if possible 
+                resolve();
+            },1000)
+        });
+    }
+        // async function were used to call getNum function with awaits keyword
+    async function demo() {
+    // await keyword is used to hold each function for specific time period.(in this 1s)
+        await getNum();
+        await getNum();
+        await getNum();
+        await getNum();
+        await getNum();
+        await getNum();
+        await getNum();
+        await getNum();
+        getNum();
+    }
