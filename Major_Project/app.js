@@ -7,12 +7,18 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+<<<<<<< HEAD
 const session  =  require("express-session");
 const cookie = require("express-session/session/cookie.js");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+=======
+
+
+
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
 
 
 
@@ -35,6 +41,7 @@ main().then(()=>{
  app.engine("ejs",ejsMate);
  app.use(express.static(path.join(__dirname, "/public")));
 
+<<<<<<< HEAD
  const sessionOptions = {
     secret : "mysupersecretcode",
     resave: false,
@@ -47,10 +54,15 @@ main().then(()=>{
  };
 
  app.get("/",(req,res) =>{
+=======
+
+app.get("/",(req,res) =>{
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.send("Hi! I am root");
 });
 
 
+<<<<<<< HEAD
 app.use(session(sessionOptions)); 
 app.use(flash());
 
@@ -80,6 +92,8 @@ app.get("/demouser", async (req,res) =>{
 
 
 
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
 // from this line of we are handling all listings from routes directory
 app.use("/listings",listings);
 

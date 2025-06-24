@@ -9,6 +9,10 @@ const Listing = require("../models/listing");
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
 const validateListing = (req,res,next)=>{
     let {error} = listingSchema.validate(req.body);
     if (error) {
@@ -38,10 +42,13 @@ router.get("/:id", wrapAsync(async (req,res)=>{
     let {id} = req.params;
     id = id.trim();
     const listing = await Listing.findById(id).populate("reviews");
+<<<<<<< HEAD
     if(!listing) {
         req.flash("error","Requested listing does not exist! ");
         res.redirect("/listings");
     }
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.render("listings/show.ejs",{listing});
 
 }));
@@ -63,7 +70,10 @@ router.post("/", wrapAsync(async (req,res,next)=>{
         }
     }
     await newListing.save();
+<<<<<<< HEAD
     req.flash("success", "New Listing Created!");
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.redirect("/listings");
     })
         
@@ -72,10 +82,13 @@ router.post("/", wrapAsync(async (req,res,next)=>{
 router.get("/:id/edit", wrapAsync(async (req,res)=>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
+<<<<<<< HEAD
     if(!listing) {
         req.flash("error","Requested listing does not exist! ");
         res.redirect("/listings");
     } 
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.render("listings/edit.ejs", {listing});
 
 }));
@@ -83,14 +96,20 @@ router.get("/:id/edit", wrapAsync(async (req,res)=>{
 router.put("/:id", wrapAsync(async (req,res)=>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing})
+<<<<<<< HEAD
     req.flash("success", "Listing Updated!");
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.redirect(`/listings/${id}`);
 }));
 //delete route
 router.delete("/:id", wrapAsync(async(req,res)=>{
     let {id} = req.params;
     let deleteListing = await Listing.findByIdAndDelete(id);
+<<<<<<< HEAD
     req.flash("success", "Listing Deleted!");
+=======
+>>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     res.redirect("/listings");
 }));
 module.exports = router;
