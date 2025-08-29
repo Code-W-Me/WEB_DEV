@@ -11,17 +11,10 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-<<<<<<< HEAD
-    "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^4.21.2",
     "express-session": "^1.18.1",
-=======
-    "ejs": "^3.1.10",
-    "ejs-mate": "^4.0.0",
-    "express": "^4.21.2",
->>>>>>> 4cb6e13493d12959ac1639b560468b3ac3a4703c
     "joi": "^17.13.3",
     "method-override": "^3.0.0",
     "mongoose": "^8.13.0"
