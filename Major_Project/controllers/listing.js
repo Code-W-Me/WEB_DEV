@@ -24,26 +24,29 @@ module.exports.showListing = async (req,res)=>{
 
 }
 
-module.exports.createListing = async (req,res,next)=>{
-    if(!req.body.listing){
-        throw new ExpressError(400,"Send valid data for listing")
-    }
-    const newListing = new Listing(req.body.listing);
-    newListing.owner = req.user._id; // Set the owner to the currently logged-in user
-    if(!newListing.title){
-        throw new ExpressError(400,"Title is missing");
-    }
-    if(!newListing.description){
-        throw new ExpressError(400,"description is missing");
-        if(!newListing.location){
-            throw new ExpressError(400,"location is missing");
-        }
-    }
-    await newListing.save();
-    req.flash("success", "New Listing Created!");
-    res.redirect("/listings");
+module.exports.createListing = async (req, res, next) => {
+    // Get the URL and filename from the file uploaded via Multer
+    let url = req.file.path;
+    let filename = req.file.filename;
 
-    }
+    // Create a new listing instance from the form's text inputs
+    const newListing = new Listing(req.body.listing);
+    
+    // Set the owner of the listing to the currently logged-in user
+    newListing.owner = req.user._id;
+
+    // Add the image object containing the Cloudinary URL and filename
+    newListing.image = { url, filename };
+
+    // Save the complete new listing to the database
+    await newListing.save();
+
+    // Add a success flash message
+    req.flash("success", "New Listing Created!");
+    
+    // Redirect to the index page
+    res.redirect("/listings");
+};
 
 module.exports.updateListing = async (req,res)=>{
     let {id} = req.params;

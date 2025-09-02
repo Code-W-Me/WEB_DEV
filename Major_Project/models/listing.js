@@ -10,15 +10,8 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        type: String,
-        default: "https://server.ekostay.com/public/property_images/66a4c20928427_AnyConv.webp",
-        set: (v) => {
-            
-            if (typeof v === "object" && v !== null && v.url) {
-                return v.url; 
-            }
-            return v === "" ? "https://server.ekostay.com/public/property_images/66a4c20928427_AnyConv.webp" : v;
-        },
+        url:String,
+        filename:String,
     },
     price: Number,
     location: String,

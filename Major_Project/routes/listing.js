@@ -6,34 +6,35 @@ const Listing = require("../models/listing");
 const Review = require("../models/reviews.js");
 const {isLogedIn, isOwner, validateListing} = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 
+//Index Route and //create routes combines
+router.route("/")
+.get( wrapAsync(listingController.index))
+.post( isLogedIn, upload.single('listing[image]'), wrapAsync(listingController.createListing));
 
-
-//Index Route
-router.get("/", wrapAsync(listingController.index));
 
 
 //new Route
 router.get("/new",isLogedIn, listingController.renderNewForm);
 
-
-//show routes
-router.get("/:id", wrapAsync(listingController.showListing));
-
-
-//create routes
-router.post("/", wrapAsync(listingController.createListing));
+// for /:id routes  //show routes  edit route and delete route are combined
+router.route("/:id")
+.get( wrapAsync(listingController.showListing))
+.put( isLogedIn,isOwner, wrapAsync(listingController.editListing))
+.delete( isLogedIn, isOwner, wrapAsync(listingController.deleteListing));
 
 
-//edit route
+
+
+
 router.get("/:id/edit",isLogedIn, isOwner, wrapAsync(listingController.updateListing));
 
 
-// update route
-router.put("/:id", isLogedIn,isOwner, wrapAsync(listingController.editListing));
 
 
-//delete route
-router.delete("/:id", isLogedIn, isOwner, wrapAsync(listingController.deleteListing));
+
+
 module.exports = router;
