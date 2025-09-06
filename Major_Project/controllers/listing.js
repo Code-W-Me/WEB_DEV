@@ -1,87 +1,101 @@
 const Listing = require("../models/listing");
-const ExpressError = require("../utils/ExpressError.js");   
+const { GeocodingApi, Configuration } = require("@stadiamaps/api");
+const config = new Configuration({ apiKey: process.env.STADIA_API_KEY });
+const geocodingClient = new GeocodingApi(config);
 
 
-module.exports.index = async (req,res)=>{
-    const allListings = await Listing.find();
-    res.render("./listings/index.ejs",{allListings});
+//  Index: Show all listings
+module.exports.index = async (req, res) => {
+    const allListings = await Listing.find({});
+    res.render("listings/index.ejs", { allListings });
 };
 
-module.exports.renderNewForm = (req,res)=>{
+//  Render to Show the form to create a new listing
+module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
-
 };
 
-module.exports.showListing = async (req,res)=>{
-    let {id} = req.params;
-    id = id.trim();
-    const listing = await Listing.findById(id).populate({path :"reviews", populate : {path : "author"}}).populate("owner");
-    if(!listing){
+//  Show_Listing: Show details of a specific listing
+module.exports.showListing = async (req, res) => {
+    let { id } = req.params;
+    
+
+    id = id.trim(); 
+
+    const listing = await Listing.findById(id)
+        .populate({
+            path: "reviews",
+            populate: {
+                path: "author",
+            },
+        })
+        .populate("owner");
+    
+    if (!listing) {
         req.flash("error", "Listing not found!");
-        res.redirect("/listings");
+        return res.redirect("/listings");
     }
-    res.render("listings/show.ejs",{listing});
-
-}
-
+    
+    res.render("listings/show.ejs", { listing });
+};
+//  Create Listing: Handle the creation of a new listing
 module.exports.createListing = async (req, res, next) => {
-    // Get the URL and filename from the file uploaded via Multer
+    const location = req.body.listing.location;
+    console.log("Location:", req.body.listing.location); // Debugging line to check the location value
+
+    const response = await geocodingClient.searchV2({ text: req.body.listing.location });
+    // console.log("Geocoding Response:", response.features[0]);
+
+
+    const newListing = new Listing(req.body.listing);
+
+    newListing.geometry = response.features[0].geometry;
+    
     let url = req.file.path;
     let filename = req.file.filename;
-
-    // Create a new listing instance from the form's text inputs
-    const newListing = new Listing(req.body.listing);
     
-    // Set the owner of the listing to the currently logged-in user
+    
     newListing.owner = req.user._id;
-
-    // Add the image object containing the Cloudinary URL and filename
     newListing.image = { url, filename };
 
-    // Save the complete new listing to the database
-    await newListing.save();
-
-    // Add a success flash message
+    let savedListing = await newListing.save();
+    // console.log(savedListing);
     req.flash("success", "New Listing Created!");
-    
-    // Redirect to the index page
     res.redirect("/listings");
 };
 
-module.exports.updateListing = async (req,res)=>{
-    let {id} = req.params;
+// Render Edit Form: Show the form to edit an existing listing
+module.exports.renderEditForm = async (req, res) => {
+    let { id } = req.params;
     const listing = await Listing.findById(id);
-    if(!listing){
+    if (!listing) {
         req.flash("error", "Listing not found!");
-         res.redirect("/listings");
+        return res.redirect("/listings");
     }
-    res.render("listings/edit.ejs", {listing});
+    res.render("listings/edit.ejs", { listing });
+};
 
-}
+//  Update Listing: Handle the update of an existing listing
+module.exports.updateListing = async (req, res) => {
+    let { id } = req.params;
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
 
-module.exports.editListing = async (req,res)=>{
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body.listing})
+    // This block handles the image update
+    if (typeof req.file !== "undefined") {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        listing.image = { url, filename };
+        await listing.save();
+    }
+    
     req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
-}
+};
 
-module.exports.deleteListing = async(req, res) => {
-    let {id} = req.params;
-
-    // Find the listing to get the review IDs.
-    // We don't need to populate the reviews here, as the array of ObjectIds is sufficient.
-    let listing = await Listing.findById(id);
-
-    // If the listing exists and has reviews, delete them.
-    if(listing && listing.reviews.length > 0){
-        // Mongoose correctly handles the array of ObjectIds.
-        await Review.deleteMany({_id: {$in: listing.reviews}});
-    }
-
-    // Now, delete the listing itself.
-    await Listing.findByIdAndDelete(id);
-
+// Delete Listing: Handle the deletion of a listing
+module.exports.deleteListing = async (req, res) => {
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id); // The Mongoose middleware will handle deleting reviews
     req.flash("success", "Listing Deleted!");
     res.redirect("/listings");
-}
+};

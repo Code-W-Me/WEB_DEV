@@ -78,9 +78,9 @@ app.use((req, res, next) => {
 });
 
 
-app.get("/",(req,res) =>{
-    res.send("Hi! I am root");
-});
+// app.get("/",(req,res) =>{
+//     res.send("Hi! I am root");
+// });
 
 
 // app.get("/demoUser", async(req, res) => {
