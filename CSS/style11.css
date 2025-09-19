@@ -1,0 +1,44 @@
+.ani{
+    width: 200px;
+    height: 100px;
+    background-color: blueviolet;
+animation-name: colanimate;
+animation-duration:10s;
+animation-timing-function: ease-in;
+animation-delay: 0 ;
+animation-iteration-count: 3;
+animation-direction: normal;
+
+
+}
+
+@keyframes fontanimation{
+    from{
+        font-size: 20px;
+    }
+    to{
+        font-size: 40px;
+    }
+}
+@keyframes colanimate{
+0%{
+    background-color: aqua;
+}
+15%{
+    background-color: azure;
+}
+45%{
+    background-color: blanchedalmond;
+}
+65%{
+    background-color: burlywood;
+
+}
+80%{
+    background-color: chocolate;
+
+}
+100%{
+    background-color: blue;
+}
+}

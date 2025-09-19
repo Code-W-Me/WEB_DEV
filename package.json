@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "engines": {
     "node": "20.19.0"
 
@@ -28,5 +29,11 @@
     "mongoose": "^8.13.0",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0"
+=======
+  "dependencies": {
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0"
+>>>>>>> 9bb6a213f48bd67cb605c2cd092d310aae455bac
   }
 }
