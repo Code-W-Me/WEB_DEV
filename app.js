@@ -48,6 +48,7 @@ main().then(()=>{
 
 
 
+ console.log("Attempting to connect to DB", dbUrl);
  const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
@@ -60,7 +61,7 @@ store.on("error", function(e){
     console.log("SESSION STORE ERROR", e);
 });
 
- const sesionOptions = {
+ const sessionOptions = {
 store : store,
 secret : process.env.SECRET,
 resave : false,
@@ -78,7 +79,7 @@ cookie: {
 
 
 
-app.use(session(sesionOptions));
+app.use(session(sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -133,6 +134,7 @@ app.use((err, req, res, next) => {
     // res.status(statusCode).send(message);
 });
 
-app.listen(8080,()=>{
-    console.log("Server is listening on port 8080");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is listening on port ${port}`);
 });
