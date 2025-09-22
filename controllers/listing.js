@@ -40,26 +40,22 @@ module.exports.showListing = async (req, res) => {
 };
 //  Create Listing: Handle the creation of a new listing
 module.exports.createListing = async (req, res, next) => {
-    const location = req.body.listing.location;
-    console.log("Location:", req.body.listing.location); // Debugging line to check the location value
-
     const response = await geocodingClient.searchV2({ text: req.body.listing.location });
-    // console.log("Geocoding Response:", response.features[0]);
 
+    // Add this check
+    if (!response.features || response.features.length === 0) {
+        req.flash("error", "Could not find the location specified. Please try again.");
+        return res.redirect("/listings/new");
+    }
 
     const newListing = new Listing(req.body.listing);
-
     newListing.geometry = response.features[0].geometry;
     
-    let url = req.file.path;
-    let filename = req.file.filename;
-    
-    
+    // ... rest of the function
     newListing.owner = req.user._id;
-    newListing.image = { url, filename };
+    newListing.image = { url: req.file.path, filename: req.file.filename };
 
-    let savedListing = await newListing.save();
-    // console.log(savedListing);
+    await newListing.save();
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
 };
